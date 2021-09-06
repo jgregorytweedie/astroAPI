@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from 'react'
 
 export default function FetchBody() {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [ID, setID] = useState("")
+  const [EnglishName, setEnglishName] = useState("")
+  const [IsPlanet, setIsPlanet] = useState("")
 
-  useEffect(() => {
+  useEffect(()=> {
     fetch("https://api.le-systeme-solaire.net/rest/bodies/")
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-        throw response
-      })
-      .catch((error) => {
-        console.error("Uh oh! I had a problem fetching data: ", error)
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    .then(res=>res.json())
+    .then(data=>{
       console.log(data)
-  }, [])
-
-  if (loading) return "Loading..."
-  if (error) return "Uh oh! Error!"
-
+      setID(data.bodies.ID)
+      setEnglishName(data.bodies.EnglishName)
+      setIsPlanet(data.bodies.IsPlanet)
+      
+    })
+  })
+  
   return (
+    
     <div>
-      {data}
+      <h1>ID: {ID}</h1>
+      <h1>English Name: {EnglishName}</h1>
+      <h1>is it a planet: {IsPlanet}</h1>
+      
     </div>
   )
 }
