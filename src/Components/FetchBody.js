@@ -27,7 +27,7 @@ class FetchBody extends Component {
   
 
   render() {
-    // const dummyArray = ["mike", "jayden"]
+
     const { isLoaded } = this.state
 
     if (!isLoaded) {
@@ -40,7 +40,7 @@ class FetchBody extends Component {
       <div className="App">
         <ul>
           {this.state.bodies.map(body =>(
-            <li>
+            <li key="{id}">
               {body.id } | {body.englishName}
             </li>
             
