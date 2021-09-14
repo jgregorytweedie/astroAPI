@@ -1,29 +1,55 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
 
-export default function FetchBody() {
-  const [ID, setID] = useState("")
-  const [EnglishName, setEnglishName] = useState("")
-  const [IsPlanet, setIsPlanet] = useState("")
+class FetchBody extends Component {
 
-  useEffect(()=> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bodies: "[]",
+      isLoaded: false,
+
+    }
+  }
+
+  componentDidMount() {
     fetch("https://api.le-systeme-solaire.net/rest/bodies/")
-    .then(res=>res.json())
-    .then(data=>{
-      console.log(data)
-      setID(data.bodies.ID)
-      setEnglishName(data.bodies.EnglishName)
-      setIsPlanet(data.bodies.IsPlanet)
-      
+    .then(res => res.json())
+    .then(json => {
+      console.log(json.bodies)
+      this.setState({
+        isLoaded: true,
+        bodies: json.bodies,
+      })
+    }).catch((error) => {
+      console.log(error)
     })
-  })
+  }
   
-  return (
-    
-    <div>
-      <h1>ID: {ID}</h1>
-      <h1>English Name: {EnglishName}</h1>
-      <h1>is it a planet: {IsPlanet}</h1>
-      
-    </div>
-  )
+
+  render() {
+    // const dummyArray = ["mike", "jayden"]
+    const { isLoaded } = this.state
+
+    if (!isLoaded) {
+      return <div>Still loading...</div>
+    }
+
+    else {
+     
+    return (
+      <div className="App">
+        <ul>
+          {this.state.bodies.map(body =>(
+            <li>
+              {body.id } | {body.englishName}
+            </li>
+            
+          ))}
+        </ul>
+      </div>
+    )
+    }
+  }
 }
+
+export default FetchBody
