@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "./fetchbody-styles.css";
 
 class FetchBody extends Component {
 /* ok how this works: I have a state, this is where the information
@@ -13,6 +14,8 @@ react to render things conditionally. E.g. when the isLoaded is set to false, th
 
     }
   }
+
+  
   // Bodies is to be rendered as an array.
 // I'm using component didMount to fetch data. This loads AFTER the "render".
 // I fetch the data on l. 20, then l. 21 I take the response and convert it to json format
@@ -50,27 +53,19 @@ react to render things conditionally. E.g. when the isLoaded is set to false, th
     }
 
     else {
-     
+      
     return (
       <div className="App">
         <ul>
           {this.state.bodies.map(body =>(
             <li key="{id}">
                {body.englishName}
-               {body.gravity} 
             </li>
-            // fun fact, this "gravity" property measures in G's.
+            // fun fact, this "gravity" property measures in G's. 
            // In here, I have englishName which is one of the objects within the array. I'm going to implement other elements of the array too! 
           ))}
         </ul>
-        <div>
-          {this.state.bodies.map(body =>(
-            <div key="index">
-              {body.density}
-              {body.avgTemp}
-            </div>
-          ))}
-        </div>
+        
       </div>
     )
     }
